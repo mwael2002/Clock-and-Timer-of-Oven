@@ -72,7 +72,6 @@ void main(void){
 
 App_init();
 
-
 while(1){
 
 restart_oven_timer();
