@@ -571,7 +571,9 @@ void timer_hr_change(void){
 
 void restart_oven_timer(void){
 
-	while(KPD_status()!=switch_mode);
+while(KPD_status()!=switch_mode);
+
+if(Mode==Clock_mode){
 
 	Mode=Restart_oven_timer_mode;
 
@@ -611,8 +613,33 @@ void restart_oven_timer(void){
 	Overflow_restart_count(TIMER1_ID);
 
 	Mode=Oven_timer_mode;
-}
+ }
 
+
+else if(Mode==Oven_timer_mode){
+    	LED_OFF(&Timer_LED);
+
+    	if(clock_hr>=10){
+           SS_Decoder_Set_Number(&hr_unit,clock_hr%10);
+    	   SS_Decoder_Set_Number(&hr_tenth,clock_hr/10);
+    	 }
+    	else if(clock_hr<10){
+    	   SS_Decoder_Set_Number(&hr_unit,clock_hr);
+    	   SS_Decoder_Set_Number(&hr_tenth,0);
+    	 }
+
+        if(clock_min>=10){
+           SS_Decoder_Set_Number(&min_unit,clock_min%10);
+    	   SS_Decoder_Set_Number(&min_tenth,clock_min/10);
+    	   }
+    	   else if(clock_min<10){
+    	   SS_Decoder_Set_Number(&min_unit,clock_min);
+    	   SS_Decoder_Set_Number(&min_tenth,0);
+    	   }
+        Mode=Clock_mode;
+ }
+
+}
 
 void Blink_SS_LED(void){
 
