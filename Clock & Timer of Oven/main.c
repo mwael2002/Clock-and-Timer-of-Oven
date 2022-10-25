@@ -13,9 +13,9 @@
 #include "seven_segment_interface.h"
 #include "LED_interface.h"
 
-#define Time_increament              3
-#define Time_decreament              11
-#define switch_mode                  7
+#define Time_increament              4
+#define Time_decreament              12
+#define switch_mode                  8
 
 #define Clock_mode                   0
 #define Oven_timer_mode              1
@@ -218,10 +218,16 @@ void set_current_time(void){
     		if(clock_hr!=23){
     		clock_hr++;
     		}
+    		else if(clock_hr==23){
+    		    clock_hr=0;
+    		}
     	}
     	else if(Entered_no==Time_decreament){
     		if(clock_hr!=0){
     			clock_hr--;
+    		}
+    		else if(clock_hr==0){
+    		    clock_hr=23;
     		}
     	}
 
@@ -260,11 +266,17 @@ void set_current_time(void){
        		if(clock_min!=59){
        		clock_min++;
        		}
+    		else if(clock_min==59){
+    		    clock_min=0;
+    		}
        	}
        	else if(Entered_no==Time_decreament){
        		if(clock_min!=0){
        			clock_min--;
        		}
+    		else if(clock_min==0){
+    		    clock_min=59;
+    		}
        	}
 
        	SS_blink_min_flag=No_Blink;
@@ -393,10 +405,16 @@ void set_oven_timer(){
 	    		if(timer_hr!=23){
 	    		timer_hr++;
 	    		}
+	    		else if(timer_hr==23){
+	    		    timer_hr=0;
+	    		}
 	    	}
 	    	else if(Entered_no==Time_decreament){
 	    		if(timer_hr!=0){
 	    			timer_hr--;
+	    		}
+	    		else if(timer_hr==0){
+	    		    timer_hr=23;
 	    		}
 	    	}
 
@@ -434,10 +452,16 @@ void set_oven_timer(){
 	       		if(timer_min!=59){
 	       		timer_min++;
 	       		}
+	       		else if(timer_min==59){
+	       			timer_min=0;
+	       		}
 	       	}
 	       	else if(Entered_no==Time_decreament){
 	       		if(timer_min!=0){
 	       			timer_min--;
+	       		}
+	       		else if(timer_min==0){
+	       			timer_min=59;
 	       		}
 	       	}
 
@@ -617,7 +641,10 @@ if(Mode==Clock_mode){
 
 
 else if(Mode==Oven_timer_mode){
-    	LED_OFF(&Timer_LED);
+    	timer_hr=0;
+    	timer_min=0;
+
+	    LED_OFF(&Timer_LED);
 
     	if(clock_hr>=10){
            SS_Decoder_Set_Number(&hr_unit,clock_hr%10);
