@@ -48,7 +48,7 @@
 #define TIMER1_PHASECORRECT_PWM_MODE_8_BIT             7
 #define TIMER1_PHASECORRECT_PWM_MODE_9_BIT             8
 #define TIMER1_PHASECORRECT_PWM_MODE_10_BIT            9
-#define TIMER1_ICU_MODE                10
+#define TIMER1_ICU_MODE                                10
 
 
 #define TIMER1_PRESCALER_MASK                          0b11111000
